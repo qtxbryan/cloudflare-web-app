@@ -27,10 +27,16 @@
 		},
 	],
 	"routes": [
+		// Apex domain routes
 		{ "pattern": "bryantansx.me/secure*", "zone_name": "bryantansx.me" },
 		{ "pattern": "bryantansx.me/flags/*", "zone_name": "bryantansx.me" },
 		{ "pattern": "bryantansx.me/flags-d1/*", "zone_name": "bryantansx.me" },
 		{ "pattern": "bryantansx.me/health", "zone_name": "bryantansx.me" },
+		// Wildcard subdomain routes — covers tunnel.bryantansx.me and any future subdomain
+		{ "pattern": "*.bryantansx.me/secure*", "zone_name": "bryantansx.me" },
+		{ "pattern": "*.bryantansx.me/flags/*", "zone_name": "bryantansx.me" },
+		{ "pattern": "*.bryantansx.me/flags-d1/*", "zone_name": "bryantansx.me" },
+		{ "pattern": "*.bryantansx.me/health", "zone_name": "bryantansx.me" },
 	],
 	/**
 	 * Smart Placement

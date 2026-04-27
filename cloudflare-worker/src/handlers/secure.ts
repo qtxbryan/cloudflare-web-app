@@ -1,7 +1,30 @@
+interface JwtPayload {
+	email?: string;
+	country?: string;
+	iat?: number;
+}
+
+function decodeJwtPayload(jwt: string | null): JwtPayload {
+	try {
+		if (!jwt) return {};
+		const base64 = jwt.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+		return JSON.parse(atob(base64)) as JwtPayload;
+	} catch {
+		return {};
+	}
+}
+
 export function handleSecure(request: Request): Response {
 	const email = request.headers.get('Cf-Access-Authenticated-User-Email') ?? 'unknown';
-	const country = (request as any).cf?.country ?? 'Unknown';
-	const timestamp = new Date().toISOString();
+
+	const jwt = request.headers.get('Cf-Access-Jwt-Assertion');
+	const payload = decodeJwtPayload(jwt);
+
+	const cf = (request as Request & { cf?: { country?: string; timezone?: string } }).cf;
+	const country = payload.country ?? cf?.country ?? 'Unknown';
+	const timestamp = payload.iat
+		? new Date(payload.iat * 1000).toISOString()
+		: new Date().toISOString();
 
 	const countryName = (() => {
 		try {
@@ -11,7 +34,8 @@ export function handleSecure(request: Request): Response {
 		}
 	})();
 
-	const formattedTime = new Date(timestamp).toLocaleString('en-US', {
+	// Workers default to UTC for Intl; cf.timezone is the visitor's IANA zone from their IP.
+	const localeOptions: Intl.DateTimeFormatOptions = {
 		weekday: 'long',
 		year: 'numeric',
 		month: 'long',
@@ -20,7 +44,9 @@ export function handleSecure(request: Request): Response {
 		minute: '2-digit',
 		second: '2-digit',
 		timeZoneName: 'short',
-	});
+		...(cf?.timezone ? { timeZone: cf.timezone } : {}),
+	};
+	const formattedTime = new Date(timestamp).toLocaleString('en-US', localeOptions);
 
 	const initials = email !== 'unknown' ? email[0].toUpperCase() : '?';
 
