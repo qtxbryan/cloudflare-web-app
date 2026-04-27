@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloudflare Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans leading-relaxed">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-slate-950/85 backdrop-blur-md border-b border-white/[0.08] px-8 py-4 flex items-center justify-between">
+    <div class="text-base font-bold tracking-tight">Cloudflare <span class="text-indigo-400">Demo</span></div>
+    <a href="/secure" class="bg-indigo-500 hover:opacity-85 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-opacity">Enter Secure Area →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="max-w-2xl mx-auto px-8 pt-20 pb-12 text-center">
+    <div class="inline-block bg-indigo-500/15 border border-indigo-500/40 text-indigo-400 text-xs font-semibold tracking-[0.06em] uppercase px-4 py-1.5 rounded-full mb-6">
+      Powered by Cloudflare Edge Network
+    </div>
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.15] mb-4">
+      Identity Verified<br />
+      <span class="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">at the Edge</span>
+    </h1>
+    <p class="text-slate-400 text-base max-w-lg mx-auto mb-8">
+      A working demo of Cloudflare's platform — Zero Trust, Workers, R2, D1, WAF, and Tunnels working together.
+    </p>
+    <a href="/secure" class="inline-flex items-center gap-2 bg-indigo-500 text-white font-semibold text-sm px-7 py-3 rounded-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-px transition-all">
+      Access Secure Area
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="max-w-5xl mx-auto px-8 py-12">
+    <div class="text-xs font-bold tracking-[0.1em] uppercase text-slate-600 mb-6">Platform features in use</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">🔒</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">Cloudflare Tunnel</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Origin server connected via encrypted outbound-only tunnel. No open inbound firewall ports required.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">🛡️</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">Zero Trust Access</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">The <code class="text-indigo-400">/secure</code> path is locked behind Cloudflare Access with Google SSO — only approved identities get in.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">Edge Workers</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Identity data, flag serving, and routing logic runs at the Cloudflare edge — not on the origin server.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">🗄️</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">R2 Object Storage</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Country flag images stored in a private R2 bucket and served via Worker bindings. Try <code class="text-indigo-400">/flags/SG</code>.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">🗃️</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">D1 Database</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Flag metadata indexed in a D1 SQLite database, bound to the Worker. Try <code class="text-indigo-400">/flags-d1/SG</code>.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-white/[0.08] hover:border-indigo-500/40 rounded-2xl p-6 transition-colors">
+        <div class="text-2xl mb-3">🧱</div>
+        <h3 class="text-sm font-semibold text-slate-100 mb-1.5">WAF Managed Rules</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">SQL injection and other OWASP attacks are blocked at the edge. Try injecting a payload in the search below.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EXPLORER -->
+  <div class="max-w-5xl mx-auto px-8 pb-16">
+    <div class="text-xs font-bold tracking-[0.1em] uppercase text-slate-600 mb-6">Southeast Asia flag explorer</div>
+    <div class="bg-slate-800 border border-white/[0.08] rounded-2xl p-8">
+      <h2 class="text-lg font-bold mb-1.5">Search Countries</h2>
+      <p class="text-sm text-slate-400 mb-6">
+        Search by country name or code. Flags are served from R2 and D1 via Cloudflare Workers.
+        Try a SQL injection payload to see the WAF in action.
+      </p>
+      <div class="flex gap-3 mb-6">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="e.g. Singapore, SG, Thailand..."
+          autocomplete="off"
+          class="flex-1 bg-slate-950 border border-white/[0.08] focus:border-indigo-500/60 rounded-lg px-4 py-2.5 text-slate-100 text-sm placeholder:text-slate-600 outline-none transition-colors"
+        />
+        <button onclick="doSearch()" class="bg-indigo-500 hover:opacity-85 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-opacity cursor-pointer">
+          Search
+        </button>
+      </div>
+      <div id="status-msg" class="text-sm text-slate-600 text-center py-4">Type a country name or code and click Search.</div>
+      <div id="results" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/[0.08] text-center py-8 text-xs text-slate-600">
+    Cloudflare Demo · Workers, R2, D1, Zero Trust &amp; Tunnels ·
+    <a href="https://developers.cloudflare.com" class="text-slate-600 hover:text-slate-400 transition-colors">developers.cloudflare.com</a>
+  </footer>
+
+  <script>
+    function buildCard(c) {
+      return '<div class="bg-slate-950 border border-white/[0.08] hover:border-indigo-500/40 rounded-xl p-3.5 flex items-center gap-2.5 transition-colors">' +
+        '<img class="w-9 h-[27px] object-cover rounded border border-white/10 shrink-0" src="/flags/' + c.code + '" alt="' + c.name + ' flag" onerror="this.style.display=\'none\'" />' +
+        '<div class="min-w-0">' +
+          '<div class="text-xs font-semibold text-slate-100 truncate">' + c.name + '</div>' +
+          '<div class="flex gap-1 mt-1">' +
+            '<a class="text-[10px] text-indigo-400 border border-indigo-500/30 hover:bg-indigo-500/15 rounded px-1.5 py-0.5 no-underline transition-colors" href="/flags/' + c.code + '" target="_blank">R2</a>' +
+            '<a class="text-[10px] text-indigo-400 border border-indigo-500/30 hover:bg-indigo-500/15 rounded px-1.5 py-0.5 no-underline transition-colors" href="/flags-d1/' + c.code + '" target="_blank">D1</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+
+    async function doSearch() {
+      var q = document.getElementById('search-input').value.trim();
+      var statusEl = document.getElementById('status-msg');
+      var resultsEl = document.getElementById('results');
+      if (!q) {
+        statusEl.textContent = 'Please enter a search term.';
+        resultsEl.innerHTML = '';
+        return;
+      }
+      statusEl.textContent = 'Searching...';
+      resultsEl.innerHTML = '';
+      try {
+        var res = await fetch('/api/countries?q=' + encodeURIComponent(q));
+        if (!res.ok) {
+          statusEl.textContent = 'Request blocked (status ' + res.status + '). Cloudflare WAF may have intervened.';
+          return;
+        }
+        var data = await res.json();
+        if (data.length === 0) {
+          statusEl.textContent = 'No countries found matching "' + q + '".';
+          return;
+        }
+        statusEl.textContent = data.length + ' result(s) found.';
+        resultsEl.innerHTML = data.map(buildCard).join('');
+      } catch (err) {
+        statusEl.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    document.getElementById('search-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    // Load all countries on first paint
+    fetch('/api/countries?q=')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.length > 0) {
+          document.getElementById('status-msg').textContent = 'Showing all ' + data.length + ' Southeast Asian countries.';
+          document.getElementById('results').innerHTML = data.map(buildCard).join('');
+        }
+      })
+      .catch(function() {});
+  </script>
+
+</body>
+</html>

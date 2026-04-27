@@ -1,0 +1,26 @@
+# Python
+*/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Environment files (root-level)
+.env
+.env.*
+!.env.example
+
+# R2 assets (uploaded via wrangler, not tracked in git)
+cloudflare-worker/flags/
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+.idea/

@@ -1,41 +1,21 @@
+from pathlib import Path
+
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
-app = FastAPI()
+from routers import countries, health
+
+app = FastAPI(title="Cloudflare Demo", version="1.0.0")
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET"])
+
+app.include_router(health.router)
+app.include_router(countries.router, prefix="/api")
+
+_landing_html = (Path(__file__).parent / "templates" / "landing.html").read_text()
 
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    return """
-<!DOCTYPE html>
-<html>
-<head><title>Home</title></head>
-<body>
-  <h1>Welcome</h1>
-  <p>Hello from FastAPI.</p>
-</body>
-</html>
-"""
-
-
-@app.get("/secure", response_class=HTMLResponse)
-def secure():
-    return """
-<!DOCTYPE html>
-<html>
-<head><title>Secure Area</title></head>
-<body>
-  <h1>Secure area</h1>
-</body>
-</html>
-"""
-
-
-@app.get("/flags/{country}")
-def flags(country: str):
-    return {"message": f"Flag for {country}"}
-
-
-@app.get("/flags-d1/{country}")
-def flags_d1(country: str):
-    return {"message": f"Flag for {country}"}
+    return _landing_html
