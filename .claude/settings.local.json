@@ -1,5 +1,10 @@
 {
   "enabledPlugins": {
     "cloudflare@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "mcp__plugin_cloudflare_cloudflare-docs__search_cloudflare_documentation"
+    ]
   }
 }

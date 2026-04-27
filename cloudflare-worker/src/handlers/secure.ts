@@ -57,10 +57,27 @@ export function handleSecure(request: Request): Response {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cloudflare Demo — Authenticated</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #111111; }
+    .cf-card {
+      background-color: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6);
+    }
+    .cf-avatar {
+      background: linear-gradient(135deg, #f48120, #faad3f);
+    }
+    .cf-link {
+      color: #f48120;
+      transition: opacity 0.15s;
+    }
+    .cf-link:hover { opacity: 0.75; }
+    .cf-divider { background-color: #2a2a2a; }
+  </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center p-6 text-slate-100">
+<body class="min-h-screen flex flex-col items-center justify-center p-6 text-slate-100">
 
-  <div class="bg-white/5 border border-white/10 rounded-3xl p-10 max-w-lg w-full backdrop-blur-xl shadow-2xl">
+  <div class="cf-card rounded-3xl p-10 max-w-lg w-full">
 
     <div class="inline-flex items-center gap-1.5 bg-green-500/15 border border-green-500/40 text-green-300 text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full mb-8">
       <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
@@ -68,14 +85,14 @@ export function handleSecure(request: Request): Response {
     </div>
 
     <div class="flex items-center gap-4 mb-8">
-      <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center text-2xl font-bold text-white shrink-0">${initials}</div>
+      <div class="cf-avatar w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold text-white shrink-0">${initials}</div>
       <div>
         <div class="text-xs font-semibold tracking-widest uppercase text-slate-400 mb-0.5">Authenticated user</div>
         <div class="text-base font-semibold text-slate-100 break-all">${email}</div>
       </div>
     </div>
 
-    <div class="h-px bg-white/[0.08] my-6"></div>
+    <div class="h-px cf-divider my-6"></div>
 
     <div class="grid gap-5">
       <div class="flex flex-col gap-1">
@@ -92,7 +109,7 @@ export function handleSecure(request: Request): Response {
             class="w-10 h-[30px] object-cover rounded border border-white/15"
             onerror="this.style.display='none'"
           />
-          <a href="/flags/${country}" class="text-indigo-400 hover:underline font-medium text-sm">${countryName} (${country})</a>
+          <a href="/flags/${country}" class="cf-link font-medium text-sm">${countryName} (${country})</a>
         </div>
       </div>
     </div>
